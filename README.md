@@ -1,1 +1,1 @@
-# go-2023
+# Dwarves - Golang course 2023
