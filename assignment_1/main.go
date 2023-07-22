@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -33,9 +34,9 @@ func validateInput(argsWithoutProg []string) error {
 func reorderNameByCountryCode(argsWithoutProg []string) string {
 	var argsLen = len(argsWithoutProg)
 	var countryCode = argsWithoutProg[argsLen-1]
-	var firstName = argsWithoutProg[0]
-	var lastName = argsWithoutProg[1]
-	var middleName = argsWithoutProg[2]
+	var firstName = strings.TrimSpace(argsWithoutProg[0])
+	var lastName = strings.TrimSpace(argsWithoutProg[1])
+	var middleName = strings.TrimSpace(argsWithoutProg[2])
 	var hasMiddleName = middleName != countryCode
 	var nameWithoutMiddle = firstName + " " + lastName
 
