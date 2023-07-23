@@ -22,28 +22,50 @@ func (s StringSorter) Len() int           { return len(s) }
 func (s StringSorter) Less(i, j int) bool { return s[i] < s[j] }
 func (s StringSorter) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
 
-func SortInt(slice []int) {
-	sort.Sort(IntSorter(slice))
+type MixedSorter []interface{}
+
+func SortInt(input []int) {
+	sort.Sort(IntSorter(input))
 }
 
-func SortFloat(slice []float64) {
-	sort.Sort(FloatSorter(slice))
+func SortFloat(input []float64) {
+	sort.Sort(FloatSorter(input))
 }
 
-func SortString(slice []string) {
-	sort.Sort(StringSorter(slice))
+func SortString(input []string) {
+	sort.Sort(StringSorter(input))
 }
 
-func SortMixedElements(slice []interface{}) {
-	sort.Slice(slice, func(i, j int) bool {
-		switch slice[i].(type) {
+func SortMixedElements(input MixedSorter) {
+	var intSlice []int
+	var floatSlice []float64
+	var stringSlice []string
+
+	for _, elem := range input {
+		switch v := elem.(type) {
 		case int:
-			return slice[i].(int) < slice[j].(int)
+			intSlice = append(intSlice, v)
 		case float64:
-			return slice[i].(float64) < slice[j].(float64)
+			floatSlice = append(floatSlice, v)
 		case string:
-			return slice[i].(string) < slice[j].(string)
+			stringSlice = append(stringSlice, v)
 		}
-		return false
-	})
+	}
+
+	sort.Ints(intSlice)
+	sort.Float64s(floatSlice)
+	sort.Strings(stringSlice)
+
+	var result MixedSorter
+	for _, val := range intSlice {
+		result = append(result, val)
+	}
+	for _, val := range floatSlice {
+		result = append(result, val)
+	}
+	for _, val := range stringSlice {
+		result = append(result, val)
+	}
+
+	copy(input, result)
 }

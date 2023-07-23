@@ -1,3 +1,3 @@
-module assignment_1
+module github.com/golang-2023/go-2023/assignment_1
 
 go 1.20

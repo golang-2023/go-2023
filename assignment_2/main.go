@@ -43,7 +43,7 @@ func main() {
 			fmt.Println("Error while parsing mixed values:", err)
 			return
 		}
-		sorting.SortMixedElements(mixed)
+		sorter.SortMixedElements(mixed)
 		fmt.Println(mixed)
 	default:
 		fmt.Println("Invalid type. Please provide a valid type: '-int', '-float', '-string', or '-mix'")
